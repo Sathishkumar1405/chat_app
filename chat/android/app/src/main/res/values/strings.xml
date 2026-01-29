@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ChatKaro</string>
+    <string name="title_activity_main">ChatKaro</string>
+    <string name="package_name">com.chatkaro.app</string>
+    <string name="custom_url_scheme">com.chatkaro.app</string>
+</resources>

@@ -18,8 +18,24 @@ const app = express();
 const server = http.createServer(app);
 const port = process.env.PORT || 5000;
 
+import session from 'express-session';
+
 app.use(cors());
 app.use(express.json());
+
+// Session Configuration
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key', // Use a strong secret in production
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production', // Requires HTTPS in production
+    httpOnly: true,
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+}));
 
 // Serve uploaded files statically
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));

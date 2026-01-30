@@ -4,7 +4,8 @@ const dotenv = require('dotenv');
 const http = require('http');
 const path = require('path');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
+let MongoStore = require('connect-mongo');
+if (MongoStore.default) MongoStore = MongoStore.default;
 
 const connectDB = require('./db');
 const chatRoutes = require('./routes/chats');
@@ -21,7 +22,12 @@ const app = express();
 const server = http.createServer(app);
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.set('trust proxy', 1);
+
+app.use(cors({
+    origin: ['https://chat-app-6-y7uf.onrender.com', 'http://localhost:5173', 'https://chat-karo.pages.dev'], // Add your Cloudflare domain later
+    credentials: true
+}));
 app.use(express.json());
 
 const sessionSecret = process.env.SESSION_SECRET;
@@ -44,7 +50,7 @@ app.use(session({
     cookie: {
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        sameSite: 'lax',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         path: '/',
         maxAge: 24 * 60 * 60 * 1000
     }

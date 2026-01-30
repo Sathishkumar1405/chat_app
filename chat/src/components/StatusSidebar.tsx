@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { PencilEdit01Icon, Camera01Icon, Cancel01Icon, SentIcon, Add01Icon } from '@hugeicons/core-free-icons';
 import { User } from '../types/chat';
+import { API_BASE_URL } from '../config';
 
 interface StatusSidebarProps {
     currentUser: User;
@@ -218,9 +219,9 @@ const StatusSidebar: React.FC<StatusSidebarProps> = ({ currentUser, users, onUpl
 
                     <div className="flex-1 flex items-center justify-center bg-black">
                         {viewingUser.statusMediaType === 'video' ? (
-                            <video src={`http://localhost:5000${viewingUser.statusMedia}`} autoPlay className="max-h-full max-w-full" onEnded={() => setViewingUser(null)} />
+                            <video src={`${API_BASE_URL}${viewingUser.statusMedia}`} autoPlay className="max-h-full max-w-full" onEnded={() => setViewingUser(null)} />
                         ) : (
-                            <img src={`http://localhost:5000${viewingUser.statusMedia}`} className="max-h-full max-w-full object-contain" />
+                            <img src={`${API_BASE_URL}${viewingUser.statusMedia}`} className="max-h-full max-w-full object-contain" />
                         )}
                     </div >
 

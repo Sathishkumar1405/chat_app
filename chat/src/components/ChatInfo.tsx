@@ -3,6 +3,7 @@ import React from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Cancel01Icon, Notification01Icon, StarIcon, Clock01Icon, AiLockIcon, ArrowRight01Icon } from '@hugeicons/core-free-icons';
 import { Chat, Message } from '../types/chat';
+import { API_BASE_URL } from '../config';
 
 interface ChatInfoProps {
     chat: Chat;
@@ -37,7 +38,7 @@ const ChatInfo: React.FC<ChatInfoProps> = ({ chat, messages, onClose, targetUser
         (chat as any).disappearingMessagesDuration = duration;
 
         try {
-            await fetch(`http://localhost:5000/api/chats/${chat.id}`, {
+            await fetch(`${API_BASE_URL}/api/chats/${chat.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ disappearingMessagesDuration: duration })

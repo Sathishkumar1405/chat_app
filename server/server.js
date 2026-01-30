@@ -3,15 +3,15 @@ import MongoStore from 'connect-mongo';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import http from 'http';
-import connectDB from './db';
-import chatRoutes from './routes/chats';
-import userRoutes from './routes/users';
-import uploadRoutes from './routes/upload';
-import communityRoutes from './routes/communities';
-import aiRoutes from './routes/ai';
+import connectDB from './src/db';
+import chatRoutes from './src/routes/chats';
+import userRoutes from './src/routes/users';
+import uploadRoutes from './src/routes/upload';
+import communityRoutes from './src/routes/communities';
+import aiRoutes from './src/routes/ai';
 import path from 'path';
-import seedDatabase from './seed';
-import { initWebSocket } from './websockets';
+import seedDatabase from './src/seed';
+import { initWebSocket } from './src/websockets';
 
 dotenv.config({ path: './.env' });
 

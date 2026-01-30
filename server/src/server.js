@@ -1,4 +1,5 @@
 import express from 'express';
+import MongoStore from 'connect-mongo';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import http from 'http';
@@ -28,6 +29,10 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'your-secret-key', // Use a strong secret in production
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI || 'mongodb://localhost:27017/chat_app',
+    collectionName: 'sessions'
+  }),
   cookie: {
     secure: process.env.NODE_ENV === 'production', // Requires HTTPS in production
     httpOnly: true,

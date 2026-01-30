@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const connect_mongo_1 = __importDefault(require("connect-mongo"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const http_1 = __importDefault(require("http"));
@@ -28,6 +29,10 @@ app.use((0, express_session_1.default)({
     secret: process.env.SESSION_SECRET || 'your-secret-key', // Use a strong secret in production
     resave: false,
     saveUninitialized: false,
+    store: connect_mongo_1.default.create({
+        mongoUrl: process.env.MONGO_URI || 'mongodb://localhost:27017/chat_app',
+        collectionName: 'sessions'
+    }),
     cookie: {
         secure: process.env.NODE_ENV === 'production', // Requires HTTPS in production
         httpOnly: true,

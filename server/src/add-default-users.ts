@@ -4,13 +4,16 @@ import Chat from './models/Chat';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const addDefaultUsersAndChat = async () => {
     try {
-        const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/chat_app';
+        const mongoURI = process.env.MONGO_URI;
+        if (!mongoURI) {
+            throw new Error('MONGO_URI is not defined in environment variables');
+        }
         await mongoose.connect(mongoURI);
-        console.log('MongoDB connected');
+        console.log('✅ MongoDB connected successfully 🚀');
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash('password', salt);

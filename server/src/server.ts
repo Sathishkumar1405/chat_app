@@ -67,16 +67,16 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/ai', aiRoutes);
 
 app.get('/', (req, res) => {
-  // Health check
-  res.send('Server is running');
+  // Health check (required for Render)
+  res.send("Backend running 🚀");
 });
 
 initWebSocket(server);
 
 connectDB().then(() => {
   seedDatabase();
-  server.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  server.listen(Number(port), '0.0.0.0', () => {
+    console.log(`🚀 Server is running on http://0.0.0.0:${port}`);
   });
 }).catch(err => {
   console.error('Failed to connect to database:', err);

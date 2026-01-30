@@ -3,13 +3,16 @@ import User from './models/User';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '../.env' }); // Adjusted path for .env since we are in src
+dotenv.config();
 
 const addUser = async () => {
     try {
-        const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/chat_app';
+        const mongoURI = process.env.MONGO_URI;
+        if (!mongoURI) {
+            throw new Error('MONGO_URI is not defined in environment variables');
+        }
         await mongoose.connect(mongoURI);
-        console.log('MongoDB connected');
+        console.log('✅ MongoDB connected successfully 🚀');
 
         const email = 'abiprasath6@gmai.com';
         const name = email.split('@')[0]; // Use mail name as user name

@@ -18,7 +18,7 @@ const connectDB = async () => {
       // Force IPv4 as some networks/ISPs have issues with SRV/Atlas and IPv6
       family: 4,
     });
-    console.log('MongoDB connected successfully');
+    console.log('✅ MongoDB connected successfully 🚀');
   } catch (error) {
     console.error('MongoDB Connection Error:', error);
     // Exit process with failure code to let the process manager restart it
